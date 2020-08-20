@@ -1,0 +1,13 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+script:
+  - docker build --pull --rm -f "latest\Dockerfile" -t ocsinventory/ocsinventory-docker-image:latest "latest"
+  - cd latest && docker-compose up -d && cd ..
+  - docker build --pull --rm -f "nightly\Dockerfile" -t ocsinventory/ocsinventory-docker-image:nightly "nightly"
+  - cd nightly && docker-compose up -d && cd ..
+  - docker build --pull --rm -f "dev\Dockerfile" -t ocsinventory/ocsinventory-docker-image:dev "dev"
+  - cd dev && docker-compose up -d && cd ..
